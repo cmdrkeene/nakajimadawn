@@ -1,5 +1,7 @@
 class HomepageController < ApplicationController
   def index
-    @tweets = Tweet.all(:order => 'created_at DESC', :limit => 25)
+    @tweets = Tweet.paginate :order     => 'created_at DESC',
+                             :page      => params[:page],
+                             :per_page  => 10
   end
 end
