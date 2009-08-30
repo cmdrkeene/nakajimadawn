@@ -1,0 +1,59 @@
+body {
+  background: black url(../images/background.png) top left no-repeat;
+}
+
+#sidebar p {
+  color: white;
+  opacity: 0.75;
+  font-weight: bold;
+}
+
+#content {
+  padding-top: 1em;
+}
+
+#content .tweet {
+  background: #111;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  opacity: 0.8;
+  padding: 1em 2em;
+  margin-bottom: 1em;
+}
+
+#content .highlight {
+  background: #111 url(../images/highlight.png) top repeat-x;
+}
+
+#content .tweet a {
+  color: #ff9933;
+  text-decoration: none;
+}
+
+#content .tweet .time {
+  color: white;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+#content .tweet .date {
+  color: #ccc;
+}
+
+#content .tweet blockquote {
+  color: white;
+  font-size: 1.5em;
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+
+#footer {
+  margin-top: 3em;
+  color: #333;
+}
+
+#footer a {
+  color: #663366;
+  text-decoration: none;
+}

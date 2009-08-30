@@ -1,0 +1,9 @@
+#sidebar.span-10
+  = image_tag('nakajima_dawn.png', :title => "Nakajima Dawn")
+  %p
+    Pat Nakajima | Midnight to Six AM
+#content.span-14.last
+  - if @tweets.empty?
+    .span-14.last
+      %h2 Nakajima hasn't tweeted anything yet
+  = render :partial => 'tweet', :collection => @tweets

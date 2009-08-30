@@ -1,0 +1,13 @@
+!!!
+%head
+  %title= yield(:title) || 'Nakajima Dawn'
+  = stylesheet_link_tag 'blueprint/screen'
+  = stylesheet_link_tag 'blueprint/print', :media => 'print'
+  = stylesheet_link_tag 'screen'
+%body
+  .container
+    = yield
+    #footer.span-24.last
+      == Site by #{link_to 'Brandon Keene', 'http://twitter.com/cmdrkeene', :alt => '@cmdrkeene on Twitter', :rel => 'nofollow'}
+      | Photo by Steve Kelley
+      
