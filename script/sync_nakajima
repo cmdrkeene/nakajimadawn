@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'open-uri'
+
+sync_uri          = "http://nakajimadawn.com/sync"
+application       = 'Nakajima Dawn'
+icon_application  = 'Tweetie'
+
+response      = open(sync_uri)
+body          = response.read
+growl_command = "growlnotify -a '#{icon_application}' -n '#{application}' -t '#{application}' -m '#{body}'"
+if response.status.first == "201"
+  system(growl_command)
+elsif body =~ /^Error/
+  system(growl_command + " -p 'Emergency'")
+end
