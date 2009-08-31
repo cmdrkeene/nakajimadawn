@@ -1,0 +1,9 @@
+.tweet
+  .span-3
+    .time
+      = tweet.tweeted_at.strftime('%I:%M%p').downcase
+    .date
+      == #{time_ago_in_words(tweet.tweeted_at)} ago
+    .date
+      = tweet.tweeted_at
+  %blockquote= tweet.text

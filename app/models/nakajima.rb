@@ -7,6 +7,17 @@ class Nakajima
     end
   end
   
+  def self.update!
+    options = {}
+    if Tweet.last
+      options[:since_id] = Tweet.last.status_id
+    end
+    dawn(options).each do |tweet|
+      t = Tweet.new_from_hash(tweet)
+      t.save
+    end
+  end
+  
   private
   
   def self.is_dawn?(time)

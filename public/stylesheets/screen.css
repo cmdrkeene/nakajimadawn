@@ -19,6 +19,7 @@ body {
   opacity: 0.8;
   padding: 1em 2em;
   margin-bottom: 1em;
+  min-height: 50px;
 }
 
 #content .highlight {

@@ -7,9 +7,13 @@ class Twitter
     page    = 1
     tweets  = []
     url     = "/statuses/user_timeline/#{screen_name}.json"
-    while !(batch = get(url, options.merge(:query => {:page => page, :count => 200}))).empty?
-      tweets += batch
-      page += 1
+    begin
+      while !(batch = get(url, options.merge(:query => {:page => page, :count => 200}))).empty?
+        tweets += batch
+        page += 1
+      end
+    rescue Exception => exception
+      raise "#{exception}: #{batch.inspect}"
     end
     tweets
   end

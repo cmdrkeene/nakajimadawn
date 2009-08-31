@@ -14,10 +14,11 @@ ActiveRecord::Schema.define(:version => 20090830181211) do
   create_table "tweets", :force => true do |t|
     t.text     "text"
     t.string   "from_user"
-    t.text     "profile_image_url"
     t.string   "source"
     t.string   "status_id"
     t.string   "in_reply_to_status_id"
+    t.string   "in_reply_to_user_id"
+    t.string   "in_reply_to_screen_name"
     t.time     "tweeted_at"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -12,4 +12,24 @@ describe Nakajima do
       end
     end
   end
+  
+  describe ".update!" do
+    it "should update all tweets from dawn" do
+      lambda {
+        Nakajima.update!
+      }.should change { Tweet.count }.by(15)
+      lambda {
+        Nakajima.update!
+      }.should_not change { Tweet.count }
+    end
+    
+    describe "with a tweet already created" do
+      it "should update from a since_id" do
+        Nakajima.update!
+        lambda {
+          Nakajima.update!
+        }.should change { Tweet.count }.by(1)
+      end
+    end
+  end
 end
