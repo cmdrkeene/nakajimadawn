@@ -7,4 +7,6 @@
     .span-14.last
       %h2 Nakajima hasn't tweeted anything yet
   = render :partial => 'tweet', :collection => @tweets
-  = will_paginate(@tweets)
+  = will_paginate(@tweets,                      |
+                  :previous_label => "&laquo;", |
+                  :next_label => "&raquo;")     |
