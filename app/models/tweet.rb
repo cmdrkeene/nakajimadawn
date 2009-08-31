@@ -16,7 +16,7 @@ class Tweet < ActiveRecord::Base
   def self.new_from_hash(hash)
     new(:from_user                => hash["user"]["screen_name"],
         :status_id                => hash["id"],
-        :tweeted_at               => Time.parse(hash["created_at"]),
+        :tweeted_at               => Time.parse(hash["created_at"]).utc,
         :text                     => hash["text"],
         :source                   => hash["source"],
         :in_reply_to_user_id      => hash["in_reply_to_user_id"],
