@@ -9,10 +9,14 @@ class Tweet < ActiveRecord::Base
   validates_numericality_of :in_reply_to_status_id, :if => :in_reply_to_status_id?
   validates_numericality_of :in_reply_to_user_id, :if => :in_reply_to_user_id?
   
+  def self.newest
+    first(:order => 'tweeted_at DESC')
+  end
+  
   def self.new_from_hash(hash)
     new(:from_user                => hash["user"]["screen_name"],
         :status_id                => hash["id"],
-        :tweeted_at               => Time.utc.parse(hash["created_at"]),
+        :tweeted_at               => Time.parse(hash["created_at"]),
         :text                     => hash["text"],
         :source                   => hash["source"],
         :in_reply_to_user_id      => hash["in_reply_to_user_id"],

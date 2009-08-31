@@ -8,7 +8,7 @@ class CreateTweets < ActiveRecord::Migration
       t.string :in_reply_to_status_id
       t.string :in_reply_to_user_id
       t.string :in_reply_to_screen_name
-      t.time :tweeted_at
+      t.datetime :tweeted_at
 
       t.timestamps
     end

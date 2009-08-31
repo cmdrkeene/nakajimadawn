@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20090830181211) do
     t.string   "in_reply_to_status_id"
     t.string   "in_reply_to_user_id"
     t.string   "in_reply_to_screen_name"
-    t.time     "tweeted_at"
+    t.datetime "tweeted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

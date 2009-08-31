@@ -8,11 +8,8 @@ class Nakajima
   end
   
   def self.update!
-    options = {}
-    if Tweet.last
-      options[:since_id] = Tweet.last.status_id
-    end
-    dawn(options).each do |tweet|
+    new_tweets = dawn({:since_id => Tweet.newest && Tweet.newest.status_id})
+    new_tweets.each do |tweet|
       t = Tweet.new_from_hash(tweet)
       t.save
     end

@@ -46,7 +46,7 @@ describe Tweet do
       tweet = Tweet.new_from_hash(json_hash)
       tweet.from_user.should == "nakajima"
       tweet.text.should == "@bmizerany @binary42 Scam it up!"
-      tweet.tweeted_at.to_s.should == "Sun Aug 30 01:29:39 -0400 2009"
+      tweet.tweeted_at.to_s.should == "2009-08-30 01:29:39 -0400"
       tweet.status_id.should == 3640288039
       tweet.source.should == "<a href=\"http://www.atebits.com/\" rel=\"nofollow\">Tweetie</a>"
       tweet.in_reply_to_status_id.should == 3640097946

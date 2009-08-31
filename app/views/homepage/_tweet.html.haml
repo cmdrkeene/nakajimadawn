@@ -1,9 +1,8 @@
-.tweet
+%div{:class => (tweet.tweeted_at.to_date == Date.today) ? "tweet today" : "tweet"}
   .span-3
     .time
-      = tweet.tweeted_at.strftime('%I:%M%p').downcase
+      = tweet.tweeted_at.strftime('%I:%M%p').downcase.gsub(/^0/, '')
     .date
       == #{time_ago_in_words(tweet.tweeted_at)} ago
-    .date
-      = tweet.tweeted_at
-  %blockquote= tweet.text
+  %blockquote
+    = tweet.text  

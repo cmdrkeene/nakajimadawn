@@ -22,7 +22,7 @@ body {
   min-height: 50px;
 }
 
-#content .highlight {
+#content .today {
   background: #111 url(../images/highlight.png) top repeat-x;
 }
 

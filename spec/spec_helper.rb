@@ -46,7 +46,9 @@ Spork.prefork do
     FakeWeb.register_uri(:get,
                          "http://twitter.com/statuses/user_timeline/nakajima.json?page=3&count=200",
                          :body => "[]")
-    
+    FakeWeb.register_uri(:get,
+                         "http://twitter.com/statuses/user_timeline/nakajima.json?page=1&count=200&since_id=3640288039",
+                         :body => File.read(File.dirname(__FILE__) + '/fixtures/user_timeline/nakajima_since_id_3640288039.json'))
   end
  
 end
