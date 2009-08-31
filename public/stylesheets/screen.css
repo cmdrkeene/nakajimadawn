@@ -33,7 +33,7 @@ body {
 
 #content .tweet .time {
   color: #999;
-  font-size: 2em;
+  font-size: 1.75em;
 }
 
 #content .tweet .date {
@@ -43,10 +43,11 @@ body {
 
 #content .tweet blockquote {
   color: white;
-  font-size: 2em;
+  font-size: 1.75em;
   font-style: normal;
   margin: 0;
   padding: 0;
+  margin-left: 120px;
 }
 
 #footer {

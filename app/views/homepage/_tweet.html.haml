@@ -4,5 +4,4 @@
       = tweet.tweeted_at.strftime('%I:%M%p').downcase.gsub(/^0/, '')
     .date
       == #{time_ago_in_words(tweet.tweeted_at)} ago
-  %blockquote
-    = tweet.text  
+  %blockquote= tweet.text  
