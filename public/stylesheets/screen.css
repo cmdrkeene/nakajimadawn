@@ -32,18 +32,18 @@ body {
 }
 
 #content .tweet .time {
-  color: white;
+  color: #999;
   font-size: 2em;
-  font-weight: bold;
 }
 
 #content .tweet .date {
-  color: #ccc;
+  color: #666;
+  
 }
 
 #content .tweet blockquote {
   color: white;
-  font-size: 1.5em;
+  font-size: 2em;
   font-style: normal;
   margin: 0;
   padding: 0;
@@ -57,4 +57,34 @@ body {
 #footer a {
   color: #663366;
   text-decoration: none;
+}
+
+/* Pagination */
+.pagination {
+  padding-top: 1em;
+  text-align: center;
+  width: 100%;
+  font-size: 1.25em;
+}
+
+.pagination .current, .pagination .disabled {
+  padding: 1em;
+  background: #111;
+  opacity: 0.8;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.pagination .current {
+  font-weight: bold;
+}
+
+.pagination a {
+  padding: 1em;
+  background: #111;
+  opacity: 0.8;
+  text-decoration: none;
+  color: white;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
