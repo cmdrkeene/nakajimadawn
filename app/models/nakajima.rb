@@ -7,15 +7,26 @@ class Nakajima
     end
   end
   
-  def self.update!
-    new_tweets = dawn({:since_id => Tweet.newest && Tweet.newest.status_id})
+  def self.sync!
+    saved = []
+    since_id = Tweet.newest && Tweet.newest.status_id
+    logger.info("Finding since status_id #{since_id}") if since_id
+    new_tweets = dawn({:since_id => since_id})
+    logger.info("Found #{new_tweets.size} JSON tweets")
     new_tweets.each do |tweet|
       t = Tweet.new_from_hash(tweet)
-      t.save
+      if t.save
+        saved << t
+      end
     end
+    saved
   end
   
   private
+
+  def self.logger
+    ActiveRecord::Base.logger
+  end
   
   def self.is_dawn?(time)
     (time >= time.at_midnight) && (time <= (time.at_midnight + 6.hours))

@@ -13,13 +13,13 @@ describe Nakajima do
     end
   end
   
-  describe ".update!" do
-    it "should update all tweets from dawn" do
+  describe ".sync!" do
+    it "should sync all tweets from dawn" do
       lambda {
-        Nakajima.update!
+        Nakajima.sync!
       }.should change { Tweet.count }.by(15)
       lambda {
-        Nakajima.update!
+        Nakajima.sync!
       }.should_not change { Tweet.count }
     end    
   end
