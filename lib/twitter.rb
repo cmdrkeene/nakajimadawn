@@ -4,11 +4,15 @@ class Twitter
   format :json
   
   def self.user_timeline(screen_name, options = {})
-    page    = 1
-    tweets  = []
-    url     = "/statuses/user_timeline/#{screen_name}.json"
+    page      = 1
+    tweets    = []
+    url       = "/statuses/user_timeline/#{screen_name}.json"
     begin
-      while !(batch = get(url, options.merge(:query => {:page => page, :count => 200}))).empty?
+      while(true)
+        query = {:page => page, :count => 200}.merge(options)
+        ActiveRecord::Base.logger.info(query.inspect)
+        batch = get(url, :query => query)
+        break if batch.empty?
         tweets += batch
         page += 1
       end

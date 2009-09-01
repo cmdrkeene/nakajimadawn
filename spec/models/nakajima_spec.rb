@@ -20,6 +20,9 @@ describe Nakajima do
       }.should change { Tweet.count }.by(15)
       lambda {
         Nakajima.sync!
+      }.should change { Tweet.count }.by(1)
+      lambda {
+        Nakajima.sync!
       }.should_not change { Tweet.count }
     end    
   end

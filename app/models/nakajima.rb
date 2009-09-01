@@ -9,15 +9,13 @@ class Nakajima
   
   def self.sync!
     saved = []
-    since_id = Tweet.newest && Tweet.newest.status_id
-    logger.info("Finding since status_id #{since_id}") if since_id
-    new_tweets = dawn({:since_id => since_id})
-    logger.info("Found #{new_tweets.size} JSON tweets")
-    new_tweets.each do |tweet|
+    options = {}
+    if Tweet.newest
+      options[:since_id] = Tweet.newest.status_id
+    end
+    dawn(options).each do |tweet|
       t = Tweet.new_from_hash(tweet)
-      if t.save
-        saved << t
-      end
+      saved << t if t.save
     end
     saved
   end
