@@ -9,20 +9,22 @@ class Tweet < ActiveRecord::Base
   validates_numericality_of :in_reply_to_status_id, :if => :in_reply_to_status_id?
   validates_numericality_of :in_reply_to_user_id, :if => :in_reply_to_user_id?
 
-  # Find tweets from 12am to 6am, local time
-  named_scope :dawn, lambda {|from_user|
-    midnight = Time.now.at_midnight.utc.hour
-    {:conditions => ["from_user = ?
-                     AND date_part('hour', tweeted_at) >= ? 
-                     AND date_part('hour', tweeted_at) < ?",
-                     from_user, midnight, midnight + 6]}
+  named_scope :from_user, lambda { |from_user|
+    {:conditions => {:from_user => from_user}}
   }
+  
+  named_scope :dawn, :conditions => [
+    "date_part('hour', tweeted_at) >= ? 
+     AND date_part('hour', tweeted_at) < ?",
+    Time.now.at_midnight.utc.hour,
+    Time.now.at_midnight.utc.hour + 6
+  ]
   
   def self.newest
     first(:order => 'tweeted_at DESC')
   end
   
-  def self.new_from_hash(hash)
+  def self.new_from_twitter(hash)
     new(:from_user                => hash["user"]["screen_name"],
         :status_id                => hash["id"],
         :tweeted_at               => Time.parse(hash["created_at"]).utc,
@@ -31,5 +33,5 @@ class Tweet < ActiveRecord::Base
         :in_reply_to_user_id      => hash["in_reply_to_user_id"],
         :in_reply_to_status_id    => hash["in_reply_to_status_id"],
         :in_reply_to_screen_name  => hash["in_reply_to_screen_name"])
-  end  
+  end
 end

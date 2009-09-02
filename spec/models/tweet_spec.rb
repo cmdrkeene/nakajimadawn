@@ -5,7 +5,7 @@ describe Tweet do
     Factory(:tweet).should_not be_a_new_record
   end
     
-  describe ".new_from_hash" do
+  describe ".new_from_twitter" do
     it "should initialize a valid tweet from hash" do
       json_hash = {
         "truncated"=>false,
@@ -43,7 +43,7 @@ describe Tweet do
           "screen_name"=>"nakajima"}, 
         "in_reply_to_status_id"=>3640097946
       }
-      tweet = Tweet.new_from_hash(json_hash)
+      tweet = Tweet.new_from_twitter(json_hash)
       tweet.from_user.should == "nakajima"
       tweet.text.should == "@bmizerany @binary42 Scam it up!"
       tweet.tweeted_at.to_s.should == "2009-08-30 01:29:39 -0400"
@@ -58,15 +58,15 @@ describe Tweet do
   
   describe ".dawn" do
     before do
-      @tweet_12am   = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight)
-      @tweet_3am    = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight + 3.hours)
-      @tweet_6am    = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight + 6.hours)
-      @tweet_630am  = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight + 6.hours + 30.minutes)
-      @tweet_5pm    = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight + 17.hours)
+      @tweet_12am   = Factory(:tweet, :tweeted_at => Time.now.at_midnight)
+      @tweet_3am    = Factory(:tweet,:tweeted_at => Time.now.at_midnight + 3.hours)
+      @tweet_6am    = Factory(:tweet,:tweeted_at => Time.now.at_midnight + 6.hours)
+      @tweet_630am  = Factory(:tweet,:tweeted_at => Time.now.at_midnight + 6.hours + 30.minutes)
+      @tweet_5pm    = Factory(:tweet,:tweeted_at => Time.now.at_midnight + 17.hours)
     end
      
     it "should only return tweets between midnight and six, EST" do
-      dawn = Tweet.dawn('nakajima')
+      dawn = Tweet.dawn
       dawn.should include(@tweet_12am)
       dawn.should include(@tweet_3am)
       dawn.should_not include(@tweet_6am)
