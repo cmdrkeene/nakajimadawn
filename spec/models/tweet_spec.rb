@@ -4,7 +4,7 @@ describe Tweet do
   it "should create a new instance given valid attributes" do
     Factory(:tweet).should_not be_a_new_record
   end
-  
+    
   describe ".new_from_hash" do
     it "should initialize a valid tweet from hash" do
       json_hash = {
@@ -53,6 +53,25 @@ describe Tweet do
       tweet.in_reply_to_user_id.should == 2379441
       tweet.in_reply_to_screen_name.should == "bmizerany"
       tweet.should be_valid
+    end
+  end
+  
+  describe ".dawn" do
+    before do
+      @tweet_12am   = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight)
+      @tweet_3am    = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight + 3.hours)
+      @tweet_6am    = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight + 6.hours)
+      @tweet_630am  = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight + 6.hours + 30.minutes)
+      @tweet_5pm    = Factory(:tweet, :from_user => 'nakajima', :tweeted_at => Time.now.at_midnight + 17.hours)
+    end
+     
+    it "should only return tweets between midnight and six, EST" do
+      dawn = Tweet.dawn('nakajima')
+      dawn.should include(@tweet_12am)
+      dawn.should include(@tweet_3am)
+      dawn.should_not include(@tweet_6am)
+      dawn.should_not include(@tweet_630am)
+      dawn.should_not include(@tweet_5pm)
     end
   end
 end

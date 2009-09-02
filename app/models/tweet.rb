@@ -8,6 +8,15 @@ class Tweet < ActiveRecord::Base
   validates_numericality_of :status_id, :if => :status_id?
   validates_numericality_of :in_reply_to_status_id, :if => :in_reply_to_status_id?
   validates_numericality_of :in_reply_to_user_id, :if => :in_reply_to_user_id?
+
+  # Find tweets from 12am to 6am, local time
+  named_scope :dawn, lambda {|from_user|
+    midnight = Time.now.at_midnight.utc.hour
+    {:conditions => ["from_user = ?
+                     AND date_part('hour', tweeted_at) >= ? 
+                     AND date_part('hour', tweeted_at) < ?",
+                     from_user, midnight, midnight + 6]}
+  }
   
   def self.newest
     first(:order => 'tweeted_at DESC')
@@ -22,5 +31,5 @@ class Tweet < ActiveRecord::Base
         :in_reply_to_user_id      => hash["in_reply_to_user_id"],
         :in_reply_to_status_id    => hash["in_reply_to_status_id"],
         :in_reply_to_screen_name  => hash["in_reply_to_screen_name"])
-  end
+  end  
 end
