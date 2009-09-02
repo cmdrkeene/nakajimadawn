@@ -5,7 +5,7 @@ class SyncController < ApplicationController
       if response.size > 0
         render :text => "#{response.size} new tweet#{'s' if response.size > 1} from @nakajima", :status => 201
       else
-        render :text => nil, :response => 304
+        render :text => "Nothing added"
       end
     rescue Exception => exception
       render :text => "Error: #{exception}"
