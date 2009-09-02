@@ -5,7 +5,7 @@ describe HomepageController do
   
   describe "#index" do
     before do
-      11.times { Factory(:tweet) }
+      11.times { Factory(:nakajima_dawn_tweet) }
     end
     
     it "should show 10 tweets per page" do
@@ -19,5 +19,6 @@ describe HomepageController do
     end
     
     it "should have an RSS feed"
+    it "should have an iPhone view"
   end
 end
