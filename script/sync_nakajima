@@ -10,7 +10,7 @@ response      = open(sync_uri)
 body          = response.read
 growl_command = "growlnotify -a '#{icon_application}' -n '#{application}' -t '#{application}' -m '#{body}'"
 if response.status.first == "201"
-  system(growl_command)
+  system(growl_command + " -p 'High'")
 elsif body =~ /^Error/
   system(growl_command + " -p 'Emergency'")
 end
