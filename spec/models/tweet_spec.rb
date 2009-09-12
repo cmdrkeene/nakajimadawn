@@ -1,4 +1,5 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'ruby-debug'
 
 describe Tweet do
   it "should create a new instance given valid attributes" do
@@ -58,18 +59,23 @@ describe Tweet do
   
   describe ".dawn" do
     before do
-      @tweet_12am   = Factory(:tweet, :tweeted_at => Time.now.at_midnight)
-      @tweet_3am    = Factory(:tweet,:tweeted_at => Time.now.at_midnight + 3.hours)
-      @tweet_6am    = Factory(:tweet,:tweeted_at => Time.now.at_midnight + 6.hours)
-      @tweet_630am  = Factory(:tweet,:tweeted_at => Time.now.at_midnight + 6.hours + 30.minutes)
-      @tweet_5pm    = Factory(:tweet,:tweeted_at => Time.now.at_midnight + 17.hours)
+      midnight = Time.now.at_midnight
+      @tweet_1159pm   = Factory(:tweet, :tweeted_at => midnight - 1.minute)
+      @tweet_12am   = Factory(:tweet, :tweeted_at => midnight)
+      @tweet_3am    = Factory(:tweet,:tweeted_at => midnight + 3.hours)
+      @tweet_6am    = Factory(:tweet,:tweeted_at => midnight + 6.hours)
+      @tweet_601am    = Factory(:tweet,:tweeted_at => midnight + 6.hours + 1.minute)
+      @tweet_630am  = Factory(:tweet,:tweeted_at => midnight + 6.hours + 30.minutes)
+      @tweet_5pm    = Factory(:tweet,:tweeted_at => midnight + 17.hours)
     end
      
     it "should only return tweets between midnight and six, EST" do
       dawn = Tweet.dawn
       dawn.should include(@tweet_12am)
       dawn.should include(@tweet_3am)
-      dawn.should_not include(@tweet_6am)
+      dawn.should include(@tweet_6am)
+      dawn.should_not include(@tweet_1159pm)
+      dawn.should_not include(@tweet_601am)
       dawn.should_not include(@tweet_630am)
       dawn.should_not include(@tweet_5pm)
     end
