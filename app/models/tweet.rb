@@ -16,8 +16,8 @@ class Tweet < ActiveRecord::Base
   named_scope :dawn, :conditions => [
     "to_number(to_char(tweeted_at, 'HH24MI'), '9999') >= ? AND
      to_number(to_char(tweeted_at, 'HH24MI'), '9999') <= ?",
-    400, # midnight UTC
-    1000 # 6am UTC
+    400, # midnight EST in UTC
+    1000 # 6am EST in UTC
   ]
   
   def self.newest

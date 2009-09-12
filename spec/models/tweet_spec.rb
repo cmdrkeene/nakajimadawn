@@ -60,11 +60,11 @@ describe Tweet do
   describe ".dawn" do
     before do
       midnight = Time.now.at_midnight
-      @tweet_1159pm   = Factory(:tweet, :tweeted_at => midnight - 1.minute)
+      @tweet_1159pm = Factory(:tweet, :tweeted_at => midnight - 1.minute)
       @tweet_12am   = Factory(:tweet, :tweeted_at => midnight)
       @tweet_3am    = Factory(:tweet,:tweeted_at => midnight + 3.hours)
       @tweet_6am    = Factory(:tweet,:tweeted_at => midnight + 6.hours)
-      @tweet_601am    = Factory(:tweet,:tweeted_at => midnight + 6.hours + 1.minute)
+      @tweet_601am  = Factory(:tweet,:tweeted_at => midnight + 6.hours + 1.minute)
       @tweet_630am  = Factory(:tweet,:tweeted_at => midnight + 6.hours + 30.minutes)
       @tweet_5pm    = Factory(:tweet,:tweeted_at => midnight + 17.hours)
     end
