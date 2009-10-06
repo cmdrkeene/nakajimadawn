@@ -18,8 +18,10 @@ class Tweet < ActiveRecord::Base
   named_scope :from_user, lambda { |from_user|
     {:conditions => {:from_user => from_user}}
   }
-  named_scope :hidden, :conditions => {:hidden => true}
-  named_scope :visible, :conditions => {:hidden => false}
+  named_scope :hidden,      :conditions => {:hidden => true}
+  named_scope :visible,     :conditions => {:hidden => false}
+  named_scope :redacted,    :conditions => {:redacted => true}
+  named_scope :unredacted,  :conditions => {:redacted => false}
 
   def self.newest
     first(:order => 'tweeted_at DESC')
